@@ -45,4 +45,25 @@ public class OrderService {
         orders.addAll(orderStore.values());
         return orders;
     }
+
+    public String update(Order order) {
+
+        if (order.getOrderId() == null) {
+            return "Order ID cannot be null";
+        }
+
+        Order existingOrder = orderStore.get(order.getOrderId());
+
+        if (existingOrder == null) {
+            return "Order not found with id: " + order.getOrderId();
+        }
+
+        // Update only allowed fields
+        existingOrder.setName(order.getName());
+        existingOrder.setQuantity(order.getQuantity());
+
+        orderStore.put(existingOrder.getOrderId(), existingOrder);
+        return "Order updated successfully with id: " + existingOrder.getOrderId();
+    }
+
 }

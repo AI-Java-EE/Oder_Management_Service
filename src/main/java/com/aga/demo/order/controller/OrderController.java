@@ -30,4 +30,11 @@ public class OrderController {
     public List<Order> getOrders() {
         return orderService.getAll();
     }
+    @PatchMapping("/{id}")
+    public String update(@PathVariable Long id, @RequestBody Order order) {
+
+        order.setOrderId(id);   // Set ID from URL
+        return orderService.update(order);
+    }
+
 }
